@@ -1,18 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>RavenSub</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+function decodeUTF8(str) {
+  try {
+    return JSON.parse(
+      decodeURIComponent(atob(str))
+    );
+  } catch (e) {
+    alert("Link inválido ou corrompido");
+    location.href = "index.html";
+  }
+}
 
-<div class="card">
-  <h2 id="titulo"></h2>
-  <p id="info"></p>
-  <button id="acaoBtn"></button>
-</div>
+const param = new URLSearchParams(location.search).get("d");
+const data = decodeUTF8(param);
 
-<script src="unlock.js"></script>
-</body>
-</html>
+let passo = 0;
+
+const titulo = document.getElementById("titulo");
+const info = document.getElementById("info");
+const btn = document.getElementById("acaoBtn");
+
+titulo.innerText = data.titulo;
+
+function proximaAcao() {
+  if (passo >= data.acoes.length) {
+    window.location.href = data.destino;
+    return;
+  }
+
+  const acao = data.acoes[passo];
+  info.innerText = `Ação ${passo + 1} de ${data.acoes.length}`;
+
+  btn.innerText = `Abrir ${acao.plat}`;
+  btn.onclick = () => {
+    window.open(acao.url, "_blank");
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.disabled = false;
+      passo++;
+      proximaAcao();
+    }, 2500); // antibot tempo real
+  };
+}
+
+proximaAcao();
