@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>RavenSub</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<h3>Ações obrigatórias</h3>
 
-<div class="card">
+<div id="acoes">
+  <div class="acao">
+    <select class="plat">
+      <option value="">Plataforma</option>
+      <option>YouTube</option>
+      <option>TikTok</option>
+      <option>Kwai</option>
+      <option>Instagram</option>
+      <option>WhatsApp Grupo</option>
+      <option>WhatsApp Canal</option>
+    </select>
 
-<h2>ℹ️ Informações Básicas</h2>
+    <select class="tipo">
+      <option value="abrir">Abrir</option>
+    </select>
 
-<input id="titulo" placeholder="Título do Link">
-<input id="destino" placeholder="URL de Destino Final">
-<input id="slug" placeholder="Slug Personalizado (opcional)">
-
-<h2>🔗 Ações de Redes Sociais</h2>
-
-<div id="acoes"></div>
-
-<button onclick="addAcao()">➕ Adicionar Nova Ação</button>
-<button class="gerar" onclick="gerar()">✏️ Gerar Link</button>
-
-<div id="resultado"></div>
-
+    <input class="url" type="url" placeholder="https://link.com">
+  </div>
 </div>
 
-<script src="create.js"></script>
-</body>
-</html>
+<button type="button" onclick="addAcao()">➕ Adicionar ação</button>
