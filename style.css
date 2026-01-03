@@ -1,0 +1,28 @@
+body {
+  background: #0b0b0f;
+  color: white;
+  font-family: Arial;
+}
+
+.card {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  background: #111;
+  box-shadow: 0 0 20px #00ff99;
+}
+
+input, select, button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  background: #00ff99;
+  color: black;
+  font-weight: bold;
+}
