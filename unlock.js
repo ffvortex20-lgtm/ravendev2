@@ -1,28 +1,51 @@
-const data = JSON.parse(atob(
-  new URLSearchParams(location.search).get("d")
-));
+function decodeUTF8(str) {
+  try {
+    return JSON.parse(
+      decodeURIComponent(atob(str))
+    );
+  } catch (e) {
+    alert("Link inválido ou corrompido");
+    location.href = "index.html";
+  }
+}
+
+const param = new URLSearchParams(window.location.search).get("d");
+if (!param) {
+  alert("Link inválido");
+  location.href = "index.html";
+}
+
+const data = decodeUTF8(param);
 
 let passo = 0;
 
-document.getElementById("titulo").innerText = data.titulo;
+const titulo = document.getElementById("titulo");
+const info = document.getElementById("info");
+const btn = document.getElementById("acaoBtn");
 
-function executar() {
+titulo.innerText = data.titulo;
+
+function proximaAcao() {
   if (passo >= data.acoes.length) {
-    location.href = data.destino;
+    window.location.href = data.destino;
     return;
   }
 
   const acao = data.acoes[passo];
-  document.getElementById("info").innerText =
-    `Ação ${passo + 1} de ${data.acoes.length}`;
+  info.innerText = `Ação ${passo + 1} de ${data.acoes.length}`;
 
-  const btn = document.getElementById("acaoBtn");
-  btn.innerText = `Ir para ${acao.plataforma}`;
+  btn.innerText = `Abrir ${acao.plat}`;
+  btn.disabled = false;
+
   btn.onclick = () => {
     window.open(acao.url, "_blank");
-    passo++;
-    setTimeout(executar, 2000); // antibot tempo
+    btn.disabled = true;
+
+    setTimeout(() => {
+      passo++;
+      proximaAcao();
+    }, 2500); // antibot
   };
 }
 
-executar();
+proximaAcao();
